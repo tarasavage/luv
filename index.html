@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating GIF around Text with Background GIFs</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000; /* Set background color to black */
+            cursor: none; /* Hide the default cursor */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+       
+       
+
+        .custom-text {
+            font-family: 'Nautilus Pompilius', sans-serif; /* Use Nautilus Pompilius font */
+            font-size: 48px; /* Adjust the font size */
+            color: #cd74c9; /* Text color */
+            text-align: center;
+            z-index: 2; /* Place the text above the rotating GIF */
+            position: absolute;
+            letter-spacing: 3px; /* Adjust the letter spacing */
+            text-shadow: 0 0 10px rgba(236, 229, 235, 0.8); /* Add a glow effect */
+            font-weight: bold; /* Make the text bold */
+            animation: pulseAnimation 2s infinite alternate ease-in-out; /* Pulsating animation */
+        }
+
+        .background-balls {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .background-ball {
+            position: absolute;
+            border-radius: 100%;
+            pointer-events: none;
+            animation: floatAnimation 3s infinite alternate ease-in-out; /* Floating animation */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Add a subtle glow effect */
+        }
+
+        .background-ball img {
+            width: 100px; /* Set the width of the background GIF */
+            height: 100px; /* Set the height of the background GIF */
+            border-radius: 50%;
+        }
+
+        @keyframes rotateAnimation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulseAnimation {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        // Display rotating GIF in the center of the screen
+        const rotatingGif = document.createElement('div');
+        rotatingGif.className = 'rotating-gif';
+        document.body.appendChild(rotatingGif);
+
+        const gifUrl = 'https://media.giphy.com/media/l0K4kWJir91VEoa1W/giphy.gif';
+        const gif = document.createElement('img');
+        gif.src = gifUrl;
+        rotatingGif.appendChild(gif);
+
+        // Display custom text in the center of the screen
+        const customText = document.createElement('div');
+        customText.className = 'custom-text';
+        customText.innerText = 'Тваринки бажають тобі солодких снів!';
+        document.body.appendChild(customText);
+
+        // Generate background balls with GIFs
+        const numberOfBackgroundBalls = 50;
+        const backgroundBallsContainer = document.createElement('div');
+        backgroundBallsContainer.className = 'background-balls';
+        document.body.appendChild(backgroundBallsContainer);
+
+        for (let i = 0; i < numberOfBackgroundBalls; i++) {
+            createBackgroundBall();
+        }
+
+        function createBackgroundBall() {
+            const backgroundBall = document.createElement('div');
+            backgroundBall.className = 'background-ball';
+            backgroundBallsContainer.appendChild(backgroundBall);
+
+            const gifUrl = getRandomGifUrl();
+            const gif = document.createElement('img');
+            gif.src = gifUrl;
+            backgroundBall.appendChild(gif);
+
+            // Set random coordinates for the background ball
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+
+            backgroundBall.style.left = `${randomX}px`;
+            backgroundBall.style.top = `${randomY}px`;
+        }
+
+        function getRandomGifUrl() {
+            const gifUrls = [
+                'https://media.giphy.com/media/pg4viWHYZU3rq/giphy.gif',
+                'https://media.giphy.com/media/QxY6uAZCuc6aDGOiST/giphy.gif',
+                'https://media.giphy.com/media/Ha4n9X93ojcqY/giphy.gif',
+                'https://media.giphy.com/media/RSilOdarBitxK/giphy.gif',
+                'https://media.giphy.com/media/S52ywG4Nf6gprUsLaY/giphy.gif',
+                'https://media.giphy.com/media/gkLu0VJnmGpZdTt1Jp/giphy.gif',
+                'https://media.giphy.com/media/82nxC1u2BC8VU1wiZq/giphy.gif',
+                'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+                'https://media.giphy.com/media/Y4pAQv58ETJgRwoLxj/giphy.gif',
+                'https://media.giphy.com/media/3ndAvMC5LFPNMCzq7m/giphy.gif',
+                'https://media.giphy.com/media/DPiuat0EsqP3a/giphy.gif',
+                'https://media.giphy.com/media/xl3Bs2qfS1jDOSHA8V/giphy.gif',
+                'https://media.giphy.com/media/tr0ejs8fRcjYs/giphy.gif',
+                'https://media.giphy.com/media/W3aQzJwGTn5ytUGQPd/giphy.gif',
+                'https://media.giphy.com/media/ZExWOEboqSuC4HfZ74/giphy.gif',
+                'https://media.giphy.com/media/AnR9AERmzSh4XcWbqg/giphy.gif',
+                'https://media.giphy.com/media/1ipRbPFTLkvMx0Qxwp/giphy.gif',
+                'https://media.giphy.com/media/7vzoQpz4Ht5AkClJXR/giphy.gif',
+                'https://media.giphy.com/media/11WAbHplcw4RFu/giphy.gif',
+                'https://media.giphy.com/media/LqVHd24x3QoWA/giphy.gif'
+            ];
+            return gifUrls[Math.floor(Math.random() * gifUrls.length)];
+        }
+    </script>
+
+</body>
+</html>
